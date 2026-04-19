@@ -1,0 +1,170 @@
+======================================================================
+DATA VALIDATION REPORT: combined_local.csv (LOCAL)
+Generated: 2026-04-19 17:57:15
+======================================================================
+
+1. DATASET OVERVIEW
+   Total rows: 22,941,997
+   Total columns: 17
+   Columns: region, province, municipality, barangay, voting_center, precinct_id, precinct_in_cluster, registered_voters, actual_voters, valid_ballots, turnout_pct, contest_type, contest_code, contest_name, candidate, votes, percentage
+
+2. MISSING VALUES
+   [OK] No missing values found
+
+3. DUPLICATES
+   Exact duplicate rows: 0
+   [OK] No exact duplicate rows found
+   Key-based duplicate rows (region, province, municipality, barangay, precinct_id, contest_type, contest_code, candidate): 0
+   [OK] No key-based duplicates found
+
+4. NUMERIC FIELD VALIDATION
+   [OK] registered_voters: All non-negative
+   [OK] actual_voters: All non-negative
+   [OK] valid_ballots: All non-negative
+   [OK] votes: All non-negative
+   [OK] turnout_pct: All non-negative
+   [OK] percentage: All non-negative
+
+5. TURNOUT PERCENTAGE VALIDATION
+   [OK] All turnout percentages valid (0-100%)
+   Min: 0.00%, Max: 100.00%, Avg: 83.95%
+
+6. CANDIDATE VOTE PERCENTAGE VALIDATION
+   [OK] All percentages valid (0-100%)
+
+7. CATEGORICAL FIELDS
+   contest_type distribution:
+      national: 19,548,776
+      local: 3,393,221
+
+8. UNIQUE VALUES COUNT
+   region: 19
+   province: 87
+   municipality: 1,411
+   barangay: 24,579
+   precinct_id: 88,456
+   contest_code: 5,579
+   candidate: 40,845
+
+9. GEOGRAPHIC DISTRIBUTION (Top 10)
+   Top provinces by row count:
+      CEBU: 980,765
+      CAVITE: 773,316
+      PANGASINAN: 730,805
+      LAGUNA: 718,333
+      BULACAN: 679,699
+      ILOILO: 679,515
+      BATANGAS: 667,965
+      NEGROS OCCIDENTAL: 640,618
+      NATIONAL CAPITAL REGION - FOURTH DISTRICT: 602,665
+      LEYTE: 561,195
+
+10. DATA TYPES
+   region: object
+   province: object
+   municipality: object
+   barangay: object
+   voting_center: object
+   precinct_id: int64
+   precinct_in_cluster: object
+   registered_voters: int64
+   actual_voters: int64
+   valid_ballots: int64
+   turnout_pct: float64
+   contest_type: object
+   contest_code: int64
+   contest_name: object
+   candidate: object
+   votes: int64
+   percentage: float64
+
+11. CONSISTENCY CHECKS
+   [OK] Actual voters <= registered voters
+   [OK] Valid ballots <= actual voters
+
+12. STRUCTURE VALIDATION
+   [OK] All required LOCAL fields present
+
+======================================================================
+DATA VALIDATION REPORT: combined_overseas.csv (OVERSEAS)
+======================================================================
+
+1. DATASET OVERVIEW
+   Total rows: 154,921
+   Total columns: 16
+   Columns: region, country, jurisdiction, voting_center, precinct_id, precinct_in_cluster, registered_voters, actual_voters, valid_ballots, turnout_pct, contest_type, contest_code, contest_name, candidate, votes, percentage
+
+2. MISSING VALUES
+   [OK] No missing values found
+
+3. DUPLICATES
+   Exact duplicate rows: 0
+   [OK] No exact duplicate rows found
+   Key-based duplicate rows (region, country, jurisdiction, precinct_id, contest_type, contest_code, candidate): 0
+   [OK] No key-based duplicates found
+
+4. NUMERIC FIELD VALIDATION
+   [OK] registered_voters: All non-negative
+   [OK] actual_voters: All non-negative
+   [OK] valid_ballots: All non-negative
+   [OK] votes: All non-negative
+   [OK] turnout_pct: All non-negative
+   [OK] percentage: All non-negative
+
+5. TURNOUT PERCENTAGE VALIDATION
+   [OK] All turnout percentages valid (0-100%)
+   Min: 0.00%, Max: 100.00%, Avg: 19.04%
+
+6. CANDIDATE VOTE PERCENTAGE VALIDATION
+   [OK] All percentages valid (0-100%)
+
+7. CATEGORICAL FIELDS
+   contest_type distribution:
+      national: 154,921
+
+8. UNIQUE VALUES COUNT
+   region: 4
+   country: 61
+   jurisdiction: 108
+   precinct_id: 234
+   contest_code: 2
+   candidate: 221
+
+9. GEOGRAPHIC DISTRIBUTION (Top 10)
+   Top countries by row count:
+      UNITED STATES OF AMERICA: 53,040
+      NIGERIA: 31,824
+      CHINA: 6,630
+      TÜRKIYE: 6,630
+      CANADA: 4,420
+      AUSTRALIA: 3,978
+      LIBYA: 3,536
+      KENYA: 2,210
+      ITALY: 2,210
+      SOUTH AFRICA: 2,210
+
+10. DATA TYPES
+   region: object
+   country: object
+   jurisdiction: object
+   voting_center: object
+   precinct_id: int64
+   precinct_in_cluster: object
+   registered_voters: int64
+   actual_voters: int64
+   valid_ballots: int64
+   turnout_pct: float64
+   contest_type: object
+   contest_code: int64
+   contest_name: object
+   candidate: object
+   votes: int64
+   percentage: float64
+
+11. CONSISTENCY CHECKS
+   [OK] Actual voters <= registered voters
+   [OK] Valid ballots <= actual voters
+
+12. STRUCTURE VALIDATION
+   [OK] All required OVERSEAS fields present
+   [OK] No barangay field (expected for overseas)

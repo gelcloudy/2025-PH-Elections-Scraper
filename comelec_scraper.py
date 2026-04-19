@@ -1,3 +1,6 @@
+# Comelec 2025 Election Results Scraper
+# by: Mark Gelson Panganoron
+
 #!/usr/bin/env python3
 import json, time, csv, logging, sys, argparse
 from pathlib import Path
@@ -378,6 +381,26 @@ def export_region_csv(region_key: str, region_code: str, is_overseas: bool):
                 r["candidate"],
             )
         )
+
+        # Overseas payloads can repeat the same precinct/candidate rows multiple times.
+        # Deduplicate on the exported business keys before writing the regional CSV.
+        deduped_rows = []
+        seen_keys = set()
+        for row in sorted_rows:
+            key = (
+                row.get("region", ""),
+                row.get("province", ""),
+                row.get("municipality", ""),
+                row.get("precinct_id", ""),
+                row.get("contest_type", ""),
+                row.get("contest_code", ""),
+                row.get("candidate", ""),
+            )
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            deduped_rows.append(row)
+
         # Rename keys: province → country, municipality → jurisdiction
         export_rows = [
             {
@@ -398,7 +421,7 @@ def export_region_csv(region_key: str, region_code: str, is_overseas: bool):
                 "votes": r["votes"],
                 "percentage": r["percentage"],
             }
-            for r in sorted_rows
+            for r in deduped_rows
         ]
     else:
         # Local: sort with barangay
@@ -422,7 +445,8 @@ def export_region_csv(region_key: str, region_code: str, is_overseas: bool):
         w.writeheader()
         w.writerows(export_rows)
 
-    log.info(f"✓ {len(all_rows):,} rows → {out_path}")
+    written_rows = len(export_rows)
+    log.info(f"✓ {written_rows:,} rows → {out_path}")
 
 # =============================================================================
 # REGION SCRAPING

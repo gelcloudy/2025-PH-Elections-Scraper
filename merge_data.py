@@ -58,6 +58,8 @@ def merge_group(input_dir: Path, output_file: Path, region_order: list[str]) -> 
 
     header = None
     total_rows = 0
+    seen_rows = set()
+    dedupe_keys = None
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -79,12 +81,29 @@ def merge_group(input_dir: Path, output_file: Path, region_order: list[str]) -> 
                     header = reader.fieldnames
                     writer = csv.DictWriter(out_f, fieldnames=header, extrasaction="ignore")
                     writer.writeheader()
+
+                    if output_file.name == "combined_overseas.csv":
+                        dedupe_keys = [
+                            "region",
+                            "country",
+                            "jurisdiction",
+                            "precinct_id",
+                            "contest_type",
+                            "contest_code",
+                            "candidate",
+                        ]
                 else:
                     # Keep output schema consistent with first file
                     if reader.fieldnames != header:
                         print(f"[WARN] Header mismatch in {file_path.name}; writing only known columns")
 
                 for row in reader:
+                    if dedupe_keys:
+                        row_key = tuple(row.get(key, "") for key in dedupe_keys)
+                        if row_key in seen_rows:
+                            continue
+                        seen_rows.add(row_key)
+
                     writer.writerow(row)
                     total_rows += 1
 
