@@ -292,6 +292,8 @@ Use at your own risk.
 
 Contributions are welcome. For any discrepancies or improvements, please open an issue or submit a pull request
 
+If you create projects or analyses using this dataset, feel free to share them—I’d love to see what you build.
+
 ## Contact
 
 - **Author:** Mark Gelson Panganoron 
