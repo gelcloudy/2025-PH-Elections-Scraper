@@ -1,0 +1,3 @@
+# Ignore output data
+output/*.csv
+output/**/*.csv
